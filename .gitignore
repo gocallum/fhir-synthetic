@@ -1,5 +1,7 @@
-# ignore all the pycache directories
+# Ignore all __pycache__ directories
+__pycache__/
+lib/__pycache__/
 
-__pycache_
-lib/__pycache_
+# Ignore the .env file
 .env
+
