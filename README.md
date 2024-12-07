@@ -1,96 +1,96 @@
-# README
+Here’s an updated `README.md` for your repository that incorporates the updates you’ve shared, including Python 3.12 and the revised `requirements.txt`.
 
-## FHIR Referral Generator and Sender
+---
 
-This Python script generates FHIR-compliant referrals and sends them to a specified API endpoint. The API URL is configurable via an `.env` file, making the script adaptable to different environments.
+# FHIR Synthetic Data Generator
+
+This repository contains a Python-based tool to generate FHIR-compliant synthetic data and send it to a configurable API endpoint. It is designed to simulate healthcare referrals for testing and development purposes.
 
 ---
 
 ## Features
 
-- Dynamically generates FHIR referrals using synthetic data.
-- Sends the generated referrals to a specified API endpoint.
-- Allows users to configure the number of referrals to send using a command-line argument.
-- Supports configuration of the API URL via an `.env` file.
+- Generates FHIR-compliant synthetic referrals using the `faker` library.
+- Sends the generated referrals to a specified API endpoint via HTTP POST requests.
+- API endpoint is configurable using a `.env` file.
+- Supports configurable referral generation via command-line arguments.
 
 ---
 
 ## Prerequisites
 
-1. **Python 3.6 or higher** installed on your system.
-2. **Required Python packages**:
+1. **Python 3.12** or higher installed on your system. [Download Python](https://www.python.org/downloads/).
+2. **Required Python libraries**:
    - `requests`
    - `python-dotenv`
-
-   Install them using:
-   ```bash
-   pip install requests python-dotenv
-   ```
+   - `faker`
 
 ---
 
 ## Setup Instructions
 
-1. **Clone or download this repository**:
-   ```bash
-   git clone https://github.com/your-repo/fhir-referral-sender.git
-   cd fhir-referral-sender
-   ```
+### Clone the Repository
+Clone the repository to your local machine:
+```bash
+git clone https://github.com/gocallum/fhir-synthetic.git
+cd fhir-synthetic
+```
 
-2. **Create a `.env` file**:
-   - Create a file named `.env` in the root directory of the project.
-   - Add the API URL to the file:
-     ```
-     API_URL=https://your-api-url.com/path/to/api
-     ```
+### Create a Virtual Environment
+It is recommended to use a virtual environment:
+```bash
+python3.12 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
 
-   Replace `https://your-api-url.com/path/to/api` with the actual API endpoint you want to use.
+### Install Dependencies
+Install the required Python libraries:
+```bash
+pip install -r requirements.txt
+```
 
-3. **Run the script**:
-   - By default, the script sends one referral. You can run it using:
-     ```bash
-     python use_fhirapi.py
-     ```
-
-   - To send multiple referrals, use the `-n` or `--number` argument:
-     ```bash
-     python use_fhirapi.py -n 5
-     ```
+### Configure the `.env` File
+Create a `.env` file in the root directory and specify the API URL:
+```
+API_URL=https://your-api-url.com/path/to/api
+```
+Replace `https://your-api-url.com/path/to/api` with the actual API endpoint where the referrals will be sent.
 
 ---
 
 ## Usage
 
+Run the script to generate and send referrals:
+
 ### Command-Line Arguments
 
-| Argument | Description                                       | Default |
-|----------|---------------------------------------------------|---------|
-| `-n`     | Number of referrals to generate and send.         | `1`     |
+| Argument         | Description                                         | Default |
+|------------------|-----------------------------------------------------|---------|
+| `-n`, `--number` | Number of referrals to generate and send.           | `1`     |
 
 ### Example Commands
 
-1. **Send a single referral**:
+1. **Send a Single Referral**:
    ```bash
    python use_fhirapi.py
    ```
 
-2. **Send 10 referrals**:
+2. **Send Multiple Referrals**:
    ```bash
-   python use_fhirapi.py -n 10
+   python use_fhirapi.py -n 5
    ```
 
 ---
 
 ## Output
 
-For each referral, the script prints:
-- Attempt number.
-- Referral ID.
-- Response status code from the API.
-- API response content.
+For each referral, the script outputs:
+- **Attempt Number**: The index of the referral attempt.
+- **Referral ID**: The unique identifier of the generated referral.
+- **Response Status Code**: The HTTP status code returned by the API.
+- **Response Content**: The content returned by the API.
 
 ### Example Output
-
 ```
 Attempt 1:
 Referral ID: AURF-123
@@ -106,23 +106,57 @@ Response Content: {"status": "success"}
 
 ---
 
+## Development Notes
+
+### Folder Structure
+- **`generate_fhir_ref.py`**: Contains the logic for generating synthetic FHIR referrals.
+- **`use_fhirapi.py`**: The main script for sending referrals to the API.
+- **`lib/common_health.py`**: Utility functions for generating healthcare-specific synthetic data.
+
+### Adding More Dependencies
+If you need additional dependencies, add them to `requirements.txt` and run:
+```bash
+pip install -r requirements.txt
+```
+
+### Debugging
+Ensure that all log outputs (e.g., errors, stack traces) are visible in your terminal or your AWS CloudWatch logs when using this in a Lambda function.
+
+---
+
 ## Troubleshooting
 
 1. **Missing API URL**:
-   - Ensure the `.env` file is present and contains the `API_URL` variable.
-
-2. **Dependency Errors**:
-   - Ensure all required packages are installed:
-     ```bash
-     pip install requests python-dotenv
+   - Ensure the `.env` file exists and contains the correct `API_URL` variable.
+   - Example:
+     ```
+     API_URL=https://your-api-url.com/path/to/api
      ```
 
-3. **API Connection Issues**:
-   - Verify the API URL in the `.env` file.
-   - Check your internet connection and API endpoint accessibility.
+2. **Dependency Errors**:
+   - Ensure all required libraries are installed:
+     ```bash
+     pip install -r requirements.txt
+     ```
+
+3. **Incorrect Python Version**:
+   - Verify that you are using Python 3.12 or higher:
+     ```bash
+     python --version
+     ```
+
+---
+
+## Contributing
+
+Contributions are welcome! Please fork the repository, make your changes, and create a pull request.
 
 ---
 
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
+
+Feel free to copy and paste this updated README into your repository! It incorporates the use of Python 3.12, highlights the `.env` configuration, and reflects the current state of the project.
